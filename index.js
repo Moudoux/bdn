@@ -25,6 +25,8 @@ nconf.file({ file: './config.json' });
  */
 
 bot.on('message', async message => {
+    // Prevent events to be triggered by yourself
+    if (message.author.id === bot.user.id) return;
     // Private messages
     if (message.channel.type === "dm") {
         notification(`Private message from '${message.author.username}'`, message.content);

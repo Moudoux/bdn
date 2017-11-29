@@ -8,7 +8,7 @@
 // Imports
 const https = require('https');
 const fs = require('fs');
-const { zip, unzip } = require('cross-unzip')
+const { zip, unzip } = require('cross-unzip');
 const path = require('path');
 const request = require('request');
 
