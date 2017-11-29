@@ -1,0 +1,35 @@
+{
+  "name": "bdn",
+  "version": "1.0.0",
+  "description": "Better desktop notifications for Discord",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Moudoux/bdn.git"
+  },
+  "keywords": [
+    "Discord",
+    "notifications"
+  ],
+  "author": "Deftware",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Moudoux/bdn/issues"
+  },
+  "homepage": "https://github.com/Moudoux/bdn#readme",
+  "dependencies": {
+    "cross-unzip": "^0.2.1",
+    "discord.js": "^11.2.1",
+    "download-file": "^0.1.5",
+    "nconf": "^0.9.1",
+    "node-7z": "^0.4.0",
+    "node-notifier": "^5.1.2",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
+    "unzip": "^0.1.11",
+    "win-7zip": "^0.1.1"
+  }
+}
