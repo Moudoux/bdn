@@ -8,6 +8,7 @@ const nconf = require('nconf');
 const path = require('path');
 const fs = require('fs');
 const { exec } = require('child_process');
+require('console-stamp')(console, 'HH:MM:ss.l');
 
 if (!fs.existsSync("./SnoreToast.exe")) {
     console.log("Downloading SnoreToast.exe...");
@@ -15,6 +16,7 @@ if (!fs.existsSync("./SnoreToast.exe")) {
 }
 
 const snore = path.join(__dirname, "SnoreToast.exe");
+const keywords = fs.readFileSync('./keywords.txt').toString().toLowerCase().split("\r\n");
 const bot = new discord.Client();
 nconf.file({ file: './config.json' });
 
@@ -25,13 +27,21 @@ nconf.file({ file: './config.json' });
 bot.on('message', async message => {
     // Private messages
     if (message.channel.type === "dm") {
-        notification("DM from " + message.author.username, message.content);
+        notification(`Private message from '${message.author.username}'`, message.content);
     }
     // Mentions
     if (await message.isMentioned(bot.user) || message.content.toLowerCase().indexOf(bot.user.username.toLowerCase()) >= 0) {
-        notification("Mentioned by " + message.author.username, message.content.replace(`<@${bot.user.id}>`, `@${bot.user.username}`));
+        notification(`Mentioned by '${message.author.username}' in '#${message.channel.name}'`, message.content.replace(`<@${bot.user.id}>`, `@${bot.user.username}`));
     }
-    // TODO: Look for keywords
+    // Keywords
+    let wordArray = [];
+    if (message.content.indexOf(" ") >= 0) { wordArray = message.content.toLowerCase().split(" "); } else { wordArray.push(message.content.toLowerCase()); };
+    for (let word of wordArray) {
+        if (keywords.indexOf(word) > -1) {
+            notification(`Keyword match '${word}' in '#${message.channel.name}'`, message.content);
+            break;
+        }
+    }
 });
 
 bot.on('ready', async () => {
@@ -45,6 +55,7 @@ bot.on('ready', async () => {
 async function notification() {
     let title = (arguments.length > 1 ? arguments[0] : null).replace("\\", "");
     let body = (arguments.length > 1 ? arguments[1] : arguments[0]).replace("\\", "");
+    console.log(`${title} => ${body}`);
     exec(`${snore} -t "${title}" -m "${body}"`, (err, stdout, stderr) => {
         if (err) {
             console.log(`Failed to notify, error: ${stderr}`);

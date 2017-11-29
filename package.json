@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Moudoux/bdn#readme",
   "dependencies": {
+    "console-stamp": "^0.2.6",
     "cross-unzip": "^0.2.1",
     "discord.js": "^11.2.1",
     "download-file": "^0.1.5",
