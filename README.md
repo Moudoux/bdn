@@ -17,4 +17,4 @@ To run BDN type `node index` or `npm start` in your shell
 License
 -------------------
 
-NJSIRCD is licensed under GPL-3.0
+BDN is licensed under GPL-3.0
